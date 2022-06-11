@@ -2,6 +2,7 @@ using DRB.Web.Data;
 using DRB.Web.Data.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,5 +42,15 @@ app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "ClientApp";
+
+    if (app.Environment.IsDevelopment())
+    {
+        spa.UseReactDevelopmentServer(npmScript: "start");
+    }
+});
 
 app.Run();
