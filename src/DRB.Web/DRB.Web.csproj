@@ -22,4 +22,10 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClientApp\src\components" />
+      <Folder Include="ClientApp\src\hooks" />
+      <Folder Include="ClientApp\src\utilities" />
+    </ItemGroup>
+
 </Project>
