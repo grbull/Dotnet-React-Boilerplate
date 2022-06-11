@@ -1,0 +1,11 @@
+# .NET build folders
+bin/
+obj/
+
+# ReSharper
+/_ReSharper.Caches/
+
+# JetBrains Rider
+.idea/
+riderModule.iml
+*.sln.iml
