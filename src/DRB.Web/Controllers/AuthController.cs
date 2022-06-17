@@ -21,11 +21,11 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult> Register([FromBody] UserRegisterDTO registerDto)
     {
+        // TODO: Will need to check email too, lets see the behavior when the email/user has been used.
         var user = await this._userManager.FindByNameAsync(registerDto.UserName);
-        if (user is null)
+        if (user is not null)
         {
-            // TODO: Return a more appropriate response
-            return this.Ok();
+            return this.Conflict();
         }
         
         user = new ApplicationUser()
@@ -34,8 +34,17 @@ public class AuthController : ControllerBase
             UserName = registerDto.UserName,
             Email = registerDto.Email
         };
-        await this._userManager.CreateAsync(user, registerDto.Password);
 
-        return this.Ok();
+        try
+        {
+            await this._userManager.CreateAsync(user, registerDto.Password);
+            return this.Ok();
+        }
+        catch (Exception exception)
+        {
+            this._logger.LogError(exception.Message, exception.StackTrace);
+            return this.Problem();
+        }
+
     }
 }
