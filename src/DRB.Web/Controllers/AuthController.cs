@@ -22,6 +22,7 @@ public class AuthController : ControllerBase
     public async Task<ActionResult> Register([FromBody] UserRegisterDTO registerDto)
     {
         // TODO: Will need to check email too, lets see the behavior when the email/user has been used.
+        // TODO: we have to validate username and email
         var user = await this._userManager.FindByNameAsync(registerDto.UserName);
         if (user is not null)
         {
@@ -30,7 +31,7 @@ public class AuthController : ControllerBase
         
         user = new ApplicationUser()
         {
-            Id = new Guid().ToString(),
+            Id = Guid.NewGuid().ToString(),
             UserName = registerDto.UserName,
             Email = registerDto.Email
         };
