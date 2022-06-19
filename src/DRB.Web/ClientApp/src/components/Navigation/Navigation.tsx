@@ -8,6 +8,7 @@ export const Navigation = () => {
       <h1>Dotnet React Boilerplate</h1>
       <Link to={RouteConstants.HOME}>Home</Link>
       <Link to={RouteConstants.REGISTER}>Register</Link>
+      <Link to={RouteConstants.LOGIN}>Login</Link>
     </div>
   );
 };

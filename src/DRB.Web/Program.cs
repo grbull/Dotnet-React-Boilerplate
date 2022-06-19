@@ -22,6 +22,10 @@ builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
 
 builder.Services.AddControllers();
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "ClientApp/build";
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,12 +40,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseSpaStaticFiles();
 
 app.UseAuthentication();
 app.UseIdentityServer();
+
+app.UseRouting();
+
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "api/{controller}/{action=Index}/{id?}");
+});
 
 app.UseSpa(spa =>
 {
