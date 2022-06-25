@@ -20,6 +20,7 @@ export const LoginPage = () => {
     const loginDtoDto = JSON.stringify({
       UserName: username,
       Password: password,
+      RememberMe: true,
     });
 
     setIsLoading(false);
